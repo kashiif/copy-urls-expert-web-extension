@@ -1,8 +1,7 @@
 {
-
   "description": "Web extension verion of Copy Urls expert",
   "manifest_version": 2,
-  "name": "copy-urls-expert-webextension",
+  "name": "copy-urls-expert-web-extension",
   "version": "__version__",
 
   "applications": {
@@ -18,7 +17,8 @@
   "permissions": [
     "tabs",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "clipboardWrite"
   ],
   
   "background": {
@@ -31,7 +31,8 @@
   },
 
   "browser_action": {
-    "default_icon": "button/cue-icon.png"
+    "default_icon": "button/cue-icon.png",
+    "default_popup": "popup/popup.html"
   }
 
 }

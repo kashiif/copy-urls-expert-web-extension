@@ -1,5 +1,5 @@
 /**
- * Created by Kahif on 08-May-16.
+ * Created by Kashif on 08-May-16.
  */
 
 'use strict';
@@ -74,6 +74,7 @@ function setupUI() {
 
   // Intentionally create an invalid item, to show off error checking in the
   // create callback.
+/*
   console.log("About to try creating an invalid item - an error about " +
     "item 999 should show up");
   chrome.contextMenus.create({"title": "Oops", "parentId": 999}, function () {
@@ -81,5 +82,6 @@ function setupUI() {
       console.log("Got expected error: " + chrome.extension.lastError.message);
     }
   });
+*/
 
 }

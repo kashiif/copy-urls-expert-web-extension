@@ -1,8 +1,45 @@
+
+body {
+  font-family: arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/*
+ul {
+  background-color: antiquewhite;
+}
+li {
+  background-color: hotpink;
+}
+*/
+
+.no-height {
+  height: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
 .list-unstyled {
   list-style: none;
   padding: 0;
 }
 
-.cue-action {
+.list-actions {
+  margin: 0;
+}
 
+.list-actions > li {
+  margin-bottom: 4px;
+}
+
+.cue-action {
+  text-decoration: none;
+  padding: 2px;
+  display: block;
+}
+
+.cue-action:hover {
+  background-color: #efefef;
 }

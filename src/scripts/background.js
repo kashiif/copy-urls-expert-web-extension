@@ -1,8 +1,5 @@
 'use strict';
 
-const SEPARATOR = '|';
-const ESCAPED_SEPARATOR = '\\|';
-
 var model = TemplatesModel();
 
 console.log('urlFormatter', UrlFormatter);
@@ -19,8 +16,7 @@ var actionHandlers = {
 function init() {
   chrome.runtime.onMessage.addListener(handleMessage);
 
-  getPrefs()
-    .then(model.update.bind(model));
+  getPrefs().then(model.update.bind(model));
 
   setupUI();
 }
@@ -42,7 +38,6 @@ function getDefaultPrefs() {
 
 function getPrefs() {
   return new Promise(function(resolve, reject){
-
 
     chrome.storage.local.get('prefs', function(prefs){
 
@@ -70,22 +65,20 @@ function reportError(err) {
 function performCopyFromTabs(tabSourceParams, request) {
   return collectTabsData(tabSourceParams, request)
             .then(function(groupedTabsData) {
-              processCollectedUrls(groupedTabsData, request.template)
+              return processCollectedUrls(groupedTabsData, request.template)
             })
             .catch(reportError);
 }
 
 function processCollectedUrls(groupedTabsData, template) {
-  console.log('processCollectedUrls', groupedTabsData);
+
   return filterDuplicates(groupedTabsData)
     .then(function(groupedTabsData){
-      console.log('before applyPattern', groupedTabsData);
 
       template = template || model.findTemplateById(model.defaultTemplateId);
       var formatter = UrlFormatter(groupedTabsData, template);
       return formatter.format();
-    })
-    .then(pasteToClipboard);
+    });
 }
 
 function performCopyAction(collectorFunction, tabSourceParams, request) {
@@ -95,28 +88,34 @@ function performCopyAction(collectorFunction, tabSourceParams, request) {
     .then(function(groupedTabsData){
         var template = request.template || findTemplateById(model.templates, model.defaultTemplateId);
         return applyPattern(groupedTabsData, template);
-      })
-    .then(pasteToClipboard);
-
+      });
 }
 
 function collectTabsData(tabQueryInfo, request){
 
   return new Promise(function(resolve, reject){
 
-    console.log('tabQueryInfo',tabQueryInfo);
-
     chrome.tabs.query(tabQueryInfo, function(tabs) {
-      if (request.action == 'active-group') {
-        tabs = tabs.filter(tab => !tab.hidden);
-      }
 
       chrome.storage.local.get('usecontenttitle', function(useContentTitle) {
+
+        let tabEntries = [];
+        let ignoreHidden = request.action === 'active-group';
+
         // for every tab return a simple object representing the tab
-        tabs = tabs.map(function(tab, index) {
-                          var title = useContentTitle && tab.contentTitle? tab.contentTitle : tab.title;
-                          return { title: title, url: tab.url };
-                        });
+        tabs.forEach(function(tab){
+
+          if (ignoreHidden && tab.hidden) {
+            return;
+          }
+
+          var title = useContentTitle && tab.contentTitle? tab.contentTitle : tab.title;
+          tabEntries.push({
+            title: title,
+            url: tab.url
+          });
+
+        });
 
         resolve([tabs]);
 
@@ -140,60 +139,17 @@ function filterDuplicates(groupedTabsData) {
   return Promise.resolve(groupedTabsData);
 }
 
-
-
-function pasteToClipboard(text) {
-  console.log('Clipboard set:\n', text);
-  return Promise.resolve();
-}
-
-/*
-function getEntriesFromTabs(groupedTabsData) {
-  var title = '',
-      url = '',
-      urls = [],
-      entries = [];
-
-  // TODO: handle duplicate
-  var filterDuplicates = true;
-  
-  for(var i = 0; i < groupedTabsData.length; i++) {
-    var tabGroup = groupedTabsData[i];
-
-    for (var index = 0; index < groupedTabsData.length; index++) { 
-      var tab = groupedTabsData[index];
-
-      //if (filterDuplicates && isDuplicate(urls, tab.url)) {
-        //continue;
-      //}
-      
-      urls.push(tab.url);
-      entries.push({
-        url: tab.url,
-        title: tab.title
-      });
-    }
-  }
-  
-  return entries;   
-}
-function getEntryForTab(tab) {
-  var url = brwsr.currentURI.spec;
-  
-  var useContentTitle = this._prefService.getBoolPref('usecontenttitle');
-
-  var title = useContentTitle && brwsr.contentTitle? brwsr.contentTitle : tab.label;
-
-  var entry = new copyUrlsExpert._UrlEntry(title,url);
-  return entry;
-}
-*/
-
 function handleMessage(request, sender, sendResponseCallback) {
 
   var targetFunction = actionHandlers[request.action];
-  targetFunction(request).then(sendResponseCallback);
+  targetFunction(request).then(function(text) {
+    sendResponseCallback({
+      text: text
+    })
+  });
 
+  // return true to indicate that sendResponseCallback will be called asynchronously
+  return true;
 }
 
 init();
