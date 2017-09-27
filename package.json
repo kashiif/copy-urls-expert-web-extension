@@ -2,6 +2,10 @@
   "name": "copy-urls-expert",
   "title": "Copy Urls Expert",
   "description": "Provides options to &quot;Copy Urls of All Opened Tabs&quot;, &quot;Copy Urls of All Links in Text Selection&quot; and &quot;Copy Urls of All Images in Selection&quot;",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config build/build.js",
+    "start": "cross-env NODE_ENV=production node build/webserver.js"
+  },
   "version": "2.4.1",
   "homepage": "http://www.kashiif.com/firefox-extensions/copy-urls-expert/",
   "author": {
@@ -25,14 +29,25 @@
   "dependencies": {},
   "keywords": [],
   "devDependencies": {
-    "grunt": "0.4.1",
-    "grunt-bump": "0.0.2",
-    "grunt-contrib-clean": "^0.4.1",
-    "grunt-contrib-compress": "^0.4.10",
-    "grunt-contrib-copy": "^0.8.1",
-    "grunt-preprocess": "^5.0.1",
-    "grunt-string-replace": "^0.2.8",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.5",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "fs-extra": "^4.0.1",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "4.0.0",
     "picnic": "^4.1.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "vue": "2.4.4",
+    "vue-loader": "13.0.5",
+    "vue-template-compiler": "2.4.4",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.8.2",
+    "write-file-webpack-plugin": "^4.1.0",
     "zepto": "^1.0.1"
   }
 }

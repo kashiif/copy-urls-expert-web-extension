@@ -2,8 +2,6 @@
 
 var model = TemplatesModel();
 
-console.log('urlFormatter', UrlFormatter);
-
 var actionHandlers = {
   'active-win': performCopyFromTabs.bind(null, {currentWindow: true}),
   'active-group': performCopyFromTabs.bind(null, {currentWindow: true}),

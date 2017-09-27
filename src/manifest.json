@@ -1,5 +1,5 @@
 {
-  "description": "Web extension verion of Copy Urls expert",
+  "description": "Web extension version of Copy Urls expert",
   "manifest_version": 2,
   "name": "copy-urls-expert-web-extension",
   "version": "__version__",
@@ -11,7 +11,7 @@
   },
 
   "options_ui": {
-    "page": "options/options.html"
+    "page": "options.html"
   },
 
   "permissions": [
@@ -23,16 +23,17 @@
   
   "background": {
     "scripts": [
-      "scripts/url-formatter.js",
-      "scripts/template-model.js",
-      "scripts/ui.js",
-      "scripts/background.js"
+      "background.js"
     ]
   },
 
   "browser_action": {
-    "default_icon": "button/cue-icon.png",
-    "default_popup": "popup/popup.html"
+    "browser_style": true,
+    "default_icon": {
+      "16": "button/cue-icon.png",
+      "32": "button/cue-icon.png"
+    },
+    "default_popup": "popup.html"
   }
 
 }

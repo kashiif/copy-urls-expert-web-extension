@@ -1,4 +1,5 @@
 /copy-urls-expert*@kashiif.com
 .idea
+dist/
 node_modules
 *.xpi

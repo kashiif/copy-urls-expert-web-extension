@@ -5,15 +5,6 @@ body {
   line-height: 1.4;
 }
 
-/*
-ul {
-  background-color: antiquewhite;
-}
-li {
-  background-color: hotpink;
-}
-*/
-
 .no-height {
   height: 0;
   padding: 0;
@@ -21,6 +12,7 @@ li {
   margin: 0;
 }
 
+/*
 .list-unstyled {
   list-style: none;
   padding: 0;
@@ -29,6 +21,7 @@ li {
 .list-actions {
   margin: 0;
 }
+
 
 .list-actions > li {
   margin-bottom: 4px;
@@ -43,3 +36,4 @@ li {
 .cue-action:hover {
   background-color: #efefef;
 }
+*/
