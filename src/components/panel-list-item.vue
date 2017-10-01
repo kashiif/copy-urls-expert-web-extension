@@ -1,13 +1,27 @@
 <template>
     <div class="panel-list-item">
-        <div class="text cue-action" :data-action="action">{{ title }}</div>
+        <a class="text cue-action"
+           href="#"
+           @click="action">
+            {{ title }}
+        </a>
     </div>
 </template>
 
 <script>
     export default {
         name: 'panel-list-item',
-        props: ['action', 'title']
+        props: {
+          action: {
+            type: Function,
+            default() {
+              return function() {};
+            },
+          },
+          title: {
+            type: String
+          }
+        },
     }
 </script>
 <style>

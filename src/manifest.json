@@ -30,10 +30,10 @@
   "browser_action": {
     "browser_style": true,
     "default_icon": {
-      "16": "button/cue-icon.png",
-      "32": "button/cue-icon.png"
+      "19": "button/cue-icon.png",
+      "38": "button/cue-icon.png"
     },
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "Copy Urls Expert"
   }
-
 }

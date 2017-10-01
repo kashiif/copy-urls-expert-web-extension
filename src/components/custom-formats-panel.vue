@@ -1,20 +1,10 @@
 <template>
-    <div>
-        <div class="row">
-            <ul class="list-unstyled">
-                <li v-for="format in formats.value"
-                    :key="format.id">
-                    <custom-format-row :format="format" />
-                </li>
-            </ul>
-
-            <div class="columns">
-                <button @click="saveTemplates">
-                    Save!
-                </button>
-            </div>
-        </div>
-    </div>
+    <ul class="list-unstyled">
+        <li v-for="format in formats.value"
+            :key="format.id">
+            <custom-format-row :format="format" />
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -37,9 +27,6 @@ export default {
         },
     },
     methods: {
-        saveTemplates() {
-            alert(1)
-        },
     },
 };
 </script>
