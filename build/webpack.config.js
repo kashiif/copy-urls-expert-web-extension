@@ -21,6 +21,7 @@ if (fileSystem.existsSync(secretsPath)) {
 const DIR_SRC = path.join(path.resolve(__dirname, '..'), 'src');
 
 var options = {
+  target: 'web',
   entry: {
     options: path.join(DIR_SRC, 'views', 'options', 'options.js'),
     popup: path.join(DIR_SRC, 'views', 'popup', 'popup.js'),
@@ -40,7 +41,8 @@ var options = {
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
           },
-          extractCSS: true
+          extractCSS: true,
+          optimizeSSR: false,
         }
       },
       {
@@ -70,6 +72,13 @@ var options = {
     }),
     extensions: ['.js', '.vue']
   },
+  externals : {
+    vue : {
+      commonjs: 'Vue',
+      amd: 'Vue',
+      root: 'Vue' // indicates global variable
+    },
+  },
   plugins: [
     // expose and write the allowed env vars on the compiled bundle
     new webpack.DefinePlugin({
@@ -88,8 +97,9 @@ var options = {
     new WriteFilePlugin(),
     new ExtractTextPlugin('[name].css'),
     new CopyWebpackPlugin([
-      { context: 'src', from: 'button/**.*' }
-    ])
+      { context: 'src', from: 'button/**.*' },
+      { context: 'node_modules/vue/dist', from: 'vue.runtime.min.js', to: 'vendor' },
+    ]),
   ]
 };
 
