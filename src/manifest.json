@@ -11,7 +11,7 @@
   },
 
   "options_ui": {
-    "page": "options.html"
+    "page": "views/options/options.html"
   },
 
   "permissions": [
@@ -33,7 +33,7 @@
       "19": "button/cue-icon.png",
       "38": "button/cue-icon.png"
     },
-    "default_popup": "popup.html",
+    "default_popup": "views/popup/popup.html",
     "default_title": "Copy Urls Expert"
   }
 }

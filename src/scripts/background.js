@@ -1,4 +1,5 @@
 'use strict';
+/*
 
 var model = TemplatesModel();
 
@@ -151,3 +152,4 @@ function handleMessage(request, sender, sendResponseCallback) {
 }
 
 init();
+*/

@@ -1,4 +1,4 @@
-var WebpackDevServer = require('webpack-dev-server'),
+const WebpackDevServer = require('webpack-dev-server'),
     webpack = require('webpack'),
     webpackConfig = require('./webpack.config'),
     env = require('../config'),
@@ -6,15 +6,15 @@ var WebpackDevServer = require('webpack-dev-server'),
 
 require('./prepare');
 
-var options = (webpackConfig.chromeExtensionBoilerplate || {});
-var excludeEntriesToHotReload = (options.notHotReload || []);
+const options = (webpackConfig.chromeExtensionBoilerplate || {});
+const excludeEntriesToHotReload = (options.notHotReload || []);
 
-for (var entryName in webpackConfig.entry) {
+for (let entryName in webpackConfig.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
 
     webpackConfig.entry[entryName] =
       [
-        ('webpack-dev-server/client?http://localhost:' + env.PORT),
+        (`webpack-dev-server/client?http://localhost:${env.PORT}`),
         'webpack/hot/dev-server'
       ].concat(webpackConfig.entry[entryName]);
   }
@@ -25,9 +25,9 @@ webpackConfig.plugins =
 
 delete webpackConfig.chromeExtensionBoilerplate;
 
-var compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig);
 
-var server =
+const server =
   new WebpackDevServer(compiler, {
     hot: true,
     contentBase: path.join(__dirname, '../dist'),
