@@ -8,17 +8,6 @@
             <input type="text" v-model="editedFormat.markup" v-if="isEditing">
             <template v-else>{{ format.markup }}</template>
         </div>
-<!--
-        <div class="column small-3">
-            <input :value="editedFormat.prefix" v-if="isEditing">
-            <template v-else>{{ format.prefix }}</template>
-        </div>
-        <div class="column small-3">
-            <input :value="editedFormat.postfix" v-if="isEditing">
-            <template v-else>{{ format.postfix }}</template>
-            {{ format.postfix }}
-        </div>
--->
       <div class="column small-2" v-if="isEditing">
         <!-- TODO: Disable update until valid name and pattern -->
         <button @click="acceptEdit">Done</button>
@@ -67,6 +56,8 @@ export default {
 @import '../styles/variables.scss';
 
 .custom-format-row {
+
+  line-height: 25px;
 
   > .col-action {
     display: none;

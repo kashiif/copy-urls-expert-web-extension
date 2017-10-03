@@ -31,9 +31,14 @@ function getPrefs() {
 }
 
 function setPrefs(prefs) {
-  browser.storage.local.set({
-    formats: JSON.stringify(prefs.formats),
-  });
+
+  const newPrefs = Object.assign({}, prefs);
+
+  if (prefs.formats) {
+    newPrefs.formats = JSON.stringify(prefs.formats)
+  }
+
+  browser.storage.local.set(newPrefs);
 }
 
 export {

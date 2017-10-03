@@ -1,7 +1,8 @@
 <template>
   <select v-model="selectedTemplateId">
     <option v-for="format in formats"
-        :key="format.id" :value="format.id">
+        :key="format.id"
+        :value="format.id">
       {{ format.name }}
     </option>
   </select>
@@ -17,6 +18,9 @@
 
       getPrefs().then((prefs) => {
         pageData.formats.push(... prefs.formats);
+        if (isNaN(this.selectedTemplateId)) {
+          this.selectedTemplateId = prefs.formats[0].id;
+        }
       });
 
       return pageData;
