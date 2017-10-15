@@ -2,7 +2,7 @@
     <ul class="list-unstyled list-formats">
         <li v-for="format in formats.value"
             :key="format.id">
-            <custom-format-row :format="format" />
+            <custom-format-row :format="format" :deleteFormat="deleteFormat" :canDelete="formats.value.length > 1"/>
         </li>
         <li>
             <div class="row">
@@ -53,7 +53,7 @@
       };
     },
     methods: {
-      acceptNew(evt) {
+      acceptNew() {
         let greatestId = 1;
         const formats = this.formats.value;
 
@@ -65,6 +65,20 @@
 
         formats.push(Object.assign({ id: greatestId + 1 }, this.newFormat));
         Object.assign(this.newFormat, getEmptyFormat());
+      },
+
+      deleteFormat(formatId) {
+        const formats = this.formats.value;
+        let foundIndex = -1;
+
+        formats.forEach(function(f, index){
+          if (f.id === formatId) {
+            foundIndex = index;
+          }
+        });
+
+        formats.splice(foundIndex, 1);
+
       }
     }
   };

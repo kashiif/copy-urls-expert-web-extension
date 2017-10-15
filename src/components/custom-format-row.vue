@@ -8,13 +8,14 @@
             <input type="text" v-model="editedFormat.markup" v-if="isEditing">
             <template v-else>{{ format.markup }}</template>
         </div>
-      <div class="column small-2" v-if="isEditing">
+      <div class="column small-4" v-if="isEditing">
         <!-- TODO: Disable update until valid name and pattern -->
         <button @click="acceptEdit">Done</button>
       </div>
-      <div class="column col-action small-2">
+      <div class="column col-action small-4">
             <!-- TODO: Disable update until valid name and pattern -->
           <button @click="beginEdit">Edit</button>
+          <button @click="beginDelete" :disabled="!canDelete">Delete</button>
         </div>
     </div>
 </template>
@@ -38,6 +39,18 @@ export default {
                 return null;
             },
         },
+
+        deleteFormat: {
+          type: Function,
+          default() {
+            return function() {};
+          },
+        },
+
+        canDelete: {
+          type: Boolean,
+          default: true,
+        },
     },
 
     methods: {
@@ -48,7 +61,10 @@ export default {
         acceptEdit() {
             this.isEditing = false;
             Object.assign(this.format, this.editedFormat);
-        }
+        },
+        beginDelete() {
+          this.deleteFormat(this.format.id);
+        },
     }
 };
 </script>
